@@ -1,5 +1,5 @@
 import openai
-OPENAI_API_KEY = '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'
+OPENAI_API_KEY = 'key here please'
 openai.api_key = OPENAI_API_KEY
 
 #prompt = 
