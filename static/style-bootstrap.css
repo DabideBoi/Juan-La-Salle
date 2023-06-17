@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css?family=Inter&display=swap');
+/*@import url('https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/css/bootstrap.min.css');*/
+
+a.nav-link {
+    color: gray;
+    font-size: 18px;
+    padding: 0;
+}
+
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid #e84118;
+    padding: 2px;
+    flex: none;
+}
+
+input:focus {
+    outline: 0px !important;
+    box-shadow: none !important;
+}
+
+.card-text {
+    border-radius: 8px;
+}
+
+cm {
+    
+    display: flex;
+    flex-direction: column-reverse;
+    flex: 1 0 auto;
+    flex-wrap: nowrap;
+
+    max-height: 80%; 
+    width: 100%;
+    
+    overflow-y: scroll;
+}
+
+message {
+  padding-left: 10px;
+}
+
+message.bot p {
+    background: #8CA390;
+    border-radius: 20px 20px 20px 0px;
+    /* padding: 10px 10px; */
+    width: fit-content;
+    /* margin-right: 35%; */
+}
+
+message.user p {
+    background: #3FCC53;
+    border-radius: 20px 20px 0px 20px;
+    /* padding: 10px 10px; */
+    margin-left: auto; 
+    max-width: 50vw;
+    /*max-width: 100%;*/
+}
+
+p {
+  margin-top: 0px;
+  padding: 10px 10px;
+  /* font-style: normal; */
+  /* font-weight: 400; */
+  /* font-size: 15px; */
+  /* line-height: auto; */
+  color: white;
+  max-width: 50vw;
+  margin-bottom: 10px;
+}
+
+.bot-div {
+  display: flex;
+  margin-bottom: 0.5rem;
+}
+
+.juan-logo {
+  height: 3.2rem;
+}
+
+#session {
+  background: #3FCC53; 
+  border-radius: 50px; 
+  font-size: 12; 
+  font-weight: bold; 
+  color: #FFFFFF; 
+  padding: 5px 10px;
+
+}
+
+message span {
+    font-size: 0.8rem;
+}
+
+@media (height > 1000) {
+  cm {
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+}
+
+@media (width < 500px) {
+  .juan-logo {
+    height: 0px;
+  }
+
+  message {
+    padding-left: 0px;
+  }
+
+  message.bot p {
+    max-width: 50vw;
+    margin-top: 0.4rem;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (width < 415px) {
+  * :not(#session) {
+    font-size: 0.9rem;
+  }
+
+  #session {
+    font-size: 80%;
+  }
+
+}

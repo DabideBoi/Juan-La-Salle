@@ -1,0 +1,9 @@
+#!/bin/bash
+
+echo "Welcome to Git Push. What will your commit be called?:"
+read
+echo "Pushing \"$REPLY\" now"
+git add .
+git commit -m "$REPLY"
+git push -u origin Tensorflow--Admin
+echo "\"$REPLY\" is now pushed"

@@ -1,0 +1,121 @@
+{% extends "template.html" %}
+
+{% block title %} CHAT {% endblock %}
+{% block head %}
+<link rel="stylesheet" href="https://codepen.io/matthewfortier/pen/JNQwGQ.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pattern.css@1.0.0/dist/pattern.min.css">
+<link rel="stylesheet" href="{{url_for('static', filename='style-bootstrap.css') }}">
+<!-- React.js -->
+<script type="application/javascript" src="https://unpkg.com/react@16.0.0/umd/react.production.min.js"></script>
+<script type="application/javascript" src="https://unpkg.com/react-dom@16.0.0/umd/react-dom.production.min.js"></script>
+<script type="application/javascript" src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+
+
+{% endblock %}
+
+{% block style %}
+cm {
+    background-color: #ffffff;
+    opacity: 1;
+    background-image: radial-gradient(#cacaca 2px, #ffffff 2px);
+    background-size: 40px 40px;
+}
+.typing {
+    align-items: center;
+    display: flex;
+    height: 17px;
+  }
+  .typing .dot {
+    animation: mercuryTypingAnimation 1.8s infinite ease-in-out;
+    background-color: #6CAD96 ; //rgba(20,105,69,.7);
+    border-radius: 50%;
+    height: 7px;
+    margin-right: 4px;
+    vertical-align: middle;
+    width: 7px;
+    display: inline-block;
+  }
+  .typing .dot:nth-child(1) {
+    animation-delay: 200ms;
+  }
+  .typing .dot:nth-child(2) {
+    animation-delay: 300ms;
+  }
+  .typing .dot:nth-child(3) {
+    animation-delay: 400ms;
+  }
+  .typing .dot:last-child {
+    margin-right: 0;
+  }
+  
+  @keyframes mercuryTypingAnimation {
+    0% {
+      transform: translateY(0px);
+      background-color:#6CAD96; // rgba(20,105,69,.7);
+    }
+    28% {
+      transform: translateY(-7px);
+      background-color:#9ECAB9; //rgba(20,105,69,.4);
+    }
+    44% {
+      transform: translateY(0px);
+      background-color: #B5D9CB; //rgba(20,105,69,.2);
+    }
+  }
+{% endblock %}
+
+{% block content %}
+  <main class="container-sm my-4" style="height: 94vh;">
+    <chatbox class="card mx-auto chatbox" style="height: 100%; border-radius: 20px; ">
+        <ch class="card-header bg-transparent" >
+            <nav class="navbar navbar-expand py-0">
+                <ul class="d-flex align-items-center justify-content-between w-100 ps-0 mb-0">
+                    <ul class="navbar-nav me-auto align-items-center">
+                        <li class="nav-item">
+                            <div class="position-relative"
+                                style="width:50px; height: 50px; border-radius: 50%; padding: 2px">
+                                <img src="https://media.discordapp.net/attachments/624110762691919882/1025435206884261949/JuanLasalle-big.png" class="img-fluid rounded-circle" alt="Juan Lasalle, at your service! :)">
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#!" class="nav-link fs-6">Juan LaSalle</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav align-items-center"> 
+                        <li class="nav-item">
+                            <div class="border" id="session" style="background: #3FCC53; border-radius: 50px; font-size: 12px; font-weight: bold; color: #FFFFFF; padding: 5px 10px;"></a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ms-auto">
+                        <button class="btn btn-light text-secondary" id="menu">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </ul>
+                </ul>    
+            </nav>   
+        </ch>
+        <cm class="d-flex card-body mb-5">
+
+            <
+
+        </cm>
+        <cf class="card-footer bg-white position-absolute w-100 bottom-0 m-0 p-1" style="border-radius: 0px 0px 20px 20px ;"">
+            <input-group class="input-group">
+                <input type="text" id="chat-input" class="form-control border rounded m-2" placeholder="Type something...">
+                <div class="input-group-text bg-transparent border-0">
+                    <button class="btn btn-light text-secondary" id="send">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </input-group>
+        </cf>
+    </chatbox> 
+</main> 
+{% endblock %}
+
+
+{% block script %}
+<!-- <script type="text/babel" src="{{ url_for('static', filename='chat-bubble.js') }}"></script> -->
+<script type="text/javascript" src="{{ url_for('static', filename='appdog.js') }}"></script>
+
+{% endblock %}

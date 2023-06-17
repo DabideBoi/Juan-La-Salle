@@ -1,0 +1,128 @@
+from flask import Flask, render_template, request, redirect, url_for, session
+from flask_sqlalchemy import SQLAlchemy
+from flask import Flask, render_template, request, jsonify
+from keras.models import load_model
+from flask_cors import CORS
+from chat import getResponse, predict_class
+import json
+
+model = load_model("chatbot_model.h5")
+intents = json.loads(open("intents.json").read())
+
+app = Flask(__name__)
+CORS(app)
+
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+app.config['SECRET_KEY'] = 'CASADORAFOLSYABIS'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
+db = SQLAlchemy(app)
+
+# Define User model
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(20), unique=True, nullable=False)
+    password = db.Column(db.String(60), nullable=False)
+    role = db.Column(db.String(20), nullable=False)
+
+# List of routes and the roles that can access them
+route_access = {
+    '/chat': ['student', 'admin'],
+    '/admin_dashboard': ['admin']
+}
+
+@app.before_first_request
+def create_tables():
+    db.create_all()
+
+# Middleware function to check if the user has access to the requested route
+@app.before_request
+def check_user_access():
+    if request.path in route_access:
+        if not 'username' in session or session['role'] not in route_access[request.path]:
+            return redirect(url_for('login'))
+
+@app.route('/')
+def index():
+    return render_template('login.html')
+
+@app.route('/login', methods=['POST'])
+def login():
+    username = request.form['username']
+    password = request.form['password']
+
+    # Check if the entered username and password match a user in the database
+    user = User.query.filter_by(username=username, password=password).first()
+    if user:
+        session['username'] = username
+        session['role'] = user.role
+        return redirect(url_for('home'))
+    else:
+        return 'Invalid username or password'
+
+@app.route('/logout')
+def logout():
+    # remove the user's username from the session data
+    session.pop('username', None)
+    # redirect to the login page
+    return render_template("login.html")
+
+@app.route('/register')
+def register():
+    return render_template('register.html')
+
+@app.route('/register', methods=['POST'])
+def register_user():
+    username = request.form['username']
+    password = request.form['password']
+    role = "student"
+
+    # Check if the entered username is already taken
+    user = User.query.filter_by(username=username).first()                                                                                                                                                                                                                                                                                                                                                                                            
+    if user:
+        return render_template('existing_user.html')
+    else:
+        # Create a new user
+        new_user = User(username=username, password=password, role=role)
+        db.session.add(new_user)
+        db.session.commit()
+
+        return render_template('new_user.html')
+
+@app.route('/home')
+def home():
+    if 'username' in session:
+        return render_template('home.html')
+    else:
+        return redirect(url_for('login'))
+
+@app.route('/chat')
+def chat():
+    return render_template("base.html")
+
+@app.post("/predict")
+def predict():
+    text = request.get_json().get("message")
+    if text.startswith('my name is'):
+        name = text[11:]
+        ints = predict_class(text, model)
+        res1 = getResponse(ints, intents)
+        res =res1.replace("{n}",name)
+    elif text.startswith('hi my name is'):
+        name = text[14:]
+        ints = predict_class(text, model)
+        res1 = getResponse(ints, intents)
+        res =res1.replace("{n}",name)
+    else:
+        ints = predict_class(text, model)
+        res = getResponse(ints, intents)
+    message ={"answer" : res}
+    return jsonify(message)
+
+
+@app.route('/admin_dashboard')
+def admin_dashboard():
+    return 'This is the admin dashboard'
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', debug=True)

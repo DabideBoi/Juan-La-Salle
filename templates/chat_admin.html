@@ -1,0 +1,135 @@
+{% extends "template.html" %}
+
+{% block title %} CHAT {% endblock %}
+{% block head %}
+<link rel="stylesheet" href="https://codepen.io/matthewfortier/pen/JNQwGQ.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pattern.css@1.0.0/dist/pattern.min.css">
+<link rel="stylesheet" href="{{url_for('static', filename='style-bootstrap.css') }}">
+
+<!-- React.js -->
+<!-- <script type="application/javascript" src="https://unpkg.com/react@16.0.0/umd/react.production.min.js"></script>
+<script type="application/javascript" src="https://unpkg.com/react-dom@16.0.0/umd/react-dom.production.min.js"></script>
+<script type="application/javascript" src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script> -->
+
+
+{% endblock %}
+
+{% block style %}
+cm {
+    background-color: #ffffff;
+    opacity: 1;
+    <!-- background-image: radial-gradient(#cacaca 2px, #ffffff 2px); -->
+    background-size: 40px 40px;
+}
+{% endblock %}
+
+{% block content %}
+    <main class="container-md px-4">    
+        <chatbox class="card chatbox flex-column overflow" style="height: 90vh; border-radius: 20px">
+            <ch class="p-2 bg-transparent" >
+              <nav class="navbar navbar-expand py-0">
+                <div class="container-fluid">
+                    <ul class="mx-auto navbar-nav d-flex align-items-center justify-content-between w-100 ps-0 mb-0">
+                        <li class="nav-item">
+                            <a href="#" class="">
+                                <img src="https://media.discordapp.net/attachments/624110762691919882/1025435206884261949/JuanLasalle-big.png" class="img" width="50" alt="Juan Lasalle, at your service! :)" /> 
+                            </a>
+                        </li>
+                        <li class="nav-item" >
+                            <div id="session"></div>
+                        </li>
+                        <li class="nav-item">
+                            <a onclick="checkIfNew()" class="btn btn-light text-secondary" id="menu" type="button" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+                                <i class="fas fa-bars"></i>
+                                {% if news == 0 %} 
+                                {% else %}
+                                    <span id="notifs" class="position-absolute top-60 start-100 translate-middle badge rounded-pill bg-danger">
+                                        +{{news}}
+                                        <span class="visually-hidden">unread messages</span>
+                                    </span>
+                                {% endif %}      
+                            </a>
+                        </li>
+                    </ul>    
+                </div>
+             </nav>
+        
+            </ch>
+        
+            <cm class="d-flex card-body my-5"></cm>
+        
+            <cf class="card-footer bg-white position-absolute w-100 bottom-0 p-1" style="border-radius: 0px 0px 20px 20px;">
+                <input-group class="input-group">
+                  
+                  <input tabindex="0" type="text" id="chat-input" class="form-control border rounded m-2" placeholder="Type something..."/> 
+                  
+                  <div class="input-group-text bg-transparent border-0">
+                      <button class="btn btn-light text-secondary" id="send">
+                          <i class="fas fa-paper-plane"></i>
+                      </button>
+                  </div>
+                </input-group>
+            </cf>
+          </chatbox>
+        
+          <div class="offcanvas offcanvas-end" tabindex="1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel" data-bs-scroll="true" >
+            <div class="offcanvas-header d-flex flex-column">
+                <div class="container d-flex justify-content-between">
+                    <h5 class="offcanvas-title" id="offcanvasExampleLabel">
+                        Menu
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="container d-flex flex-column row-gap-1 mt-3">
+                    <a href="{{url_for('site.admin_dashboard')}}" class="btn btn-sm btn-success">Admin Dashboard</a>
+                    <a href="{{url_for('site.home')}}" class="btn btn-sm btn-secondary f">Home</a>
+                    <a href="{{url_for('api.logout')}}" class="btn btn-sm btn-danger f">Logout</a>
+                </div>
+            </div>
+            <div class="offcanvas-body">
+                <h1 class="fs-5">Notifications</h1>
+                <div>
+                    <!-- //Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists, etc. -->
+                    <div class="list-group d-flex flex-column-reverse" id="accordionExample">
+                        {% for e in notif_list %}
+                        <li class="list-group-item btn btn-success li-e" id="li-{{e.id}}" data-isnew="{{e.is_new}}" onclick="onSeenMessage({{e.id}})" data-bs-toggle="modal" data-bs-target=#{{e.id}} type="button" data-bs-toggle="collapse" data-bs-target=#{{e.id}} aria-expanded="true" aria-controls={{e.id}}>                            
+                            FROM: {{e.sender}}
+                        </li>
+                        <!-- Modal -->
+                        <div class="modal fade" id={{e.id}} tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="false" aria-hidden="true" aria>
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header bg-success">
+                                        <h1 class="modal-title fs-5 text-white" id="exampleModalLabel"><strong>{{e.date}}</strong></h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <ul class="list-group">
+                                            <li class="list-group-item"><strong>Receiver:</strong> {{e.receiver}}</li>
+                                            <li class="list-group-item d-inline-flex"><strong class="align-self-center">Content:</strong>
+                                                <message class="user"> 
+                                                    <p>{{e.content}}</p> 
+                                                </message>
+                                            </li>
+                                            <li class="list-group-item"><strong>Sender:</strong> {{e.sender}}</li>
+                                            <li class="list-group-item"><strong>Date:</strong> {{e.date}}</li>
+                                        </ul>
+                                    </div>                   
+                            </div>
+                            </div>
+                        </div>
+                        
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}
+
+
+{% block script %}
+<!-- <script type="text/babel" src="{{ url_for('static', filename='chat-bubble.js') }}"></script> -->
+<script type="text/javascript" src="{{ url_for('static', filename='appdog.js') }}"></script>
+{% endblock %}

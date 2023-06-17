@@ -1,0 +1,38 @@
+
+        <meta charset="utf-8">
+        <title>REGISTER</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    </head>
+
+    <body class="container mx-auto" style="background-color: green; height: 100%;">
+
+        <div class="card p-4 m-auto">
+            <form action="/register" method = "POST">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="username@address.com" name="username">
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password">
+                </div>
+                <button type="submit" class="btn btn-primary"> Submit</button>
+                <!-- <p>Email <input type = "email" name = "username" /></p>
+                <p>Password <input type = "password" name = "password" /></p>
+                <p> submit <input type = "submit" value = "Submit" /></p> -->
+            </form>   
+
+            <div class="card p-4 mt-3 me-auto">
+                <h5 class="card-title">Already Have an Account?</h5>
+                <p class="card-text small"><a href ="{{url_for('site.index')}}">Login Here</a></p>
+            </div>
+        </div>
+
+
+        
+    </body>
+</html>

@@ -1,0 +1,85 @@
+{% extends "template.html" %}
+{% block title %}WELCOME!{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="https://codepen.io/matthewfortier/pen/JNQwGQ.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pattern.css@1.0.0/dist/pattern.min.css">
+<link ref="stylesheet" href="{{url_for('static', filename='style-home.css') }}">
+{% endblock %}
+{% block style %}
+
+img {
+  position: fixed;
+  float: right;
+  padding: 3px;
+  bottom: 0;
+  z-index: 99;
+  right: 0;
+  height: 50vh
+}
+
+@media (width < 2000px) {
+  img {
+    height: 0;
+  }
+}
+
+{% endblock %}
+{% block content %}
+<main class="container-md px-4 align-items-center">    
+    <div class="card card-body p-5 mx-auto my-5 d-flex fs-5" style="height: 90%; border-radius: 20px">
+        <h1>
+          Juan, your Friendly Chatbot Assistant
+        </h1>
+
+        <p>
+          Hello and welcome! I am Juan, your friendly chatbot assistant! I'm here to help you with any questions or concerns you may have. Let me guide you on how to use me effectively:
+        </p>
+
+        <ul>
+          <li class="list-unstyled">
+            <h5 class="fs-4">User Interface</h5>
+            <p> My user interface adapts seamlessly to any screen size, ensuring a comfortable experience.</p>
+          </li>
+          <li class="list-unstyled">
+            <h5 class="fs-4">Chat Interface</h5>
+            <p>
+              You'll find a chat area with a text input field and a submit button.
+              Type your query in the text input field and click "Submit" to send it to me.</p>
+          </li>
+          <li class="list-unstyled">
+            <h5 class="fs-4">System Administrator Notification</h5>
+            <p>
+                If I can't answer your query, don't worry! I have a notification system to involve the system administrator.
+                They will address your question and notify you in real time, offering further assistance.
+            </p>
+          </li>
+          <li class="list-unstyled">
+            <h5 class="fs-4">My Functionality</h5>
+            <p>
+              
+                I'm equipped with a trained neural network to answer your queries.
+                Once you submit your question, I'll process it and provide you with a helpful response.
+            </p>
+          </li>
+        </ul>  
+        
+        <p>
+          Feel free to ask anything you need, and I'll do my best to assist you. If you encounter any issues, remember that the system administrator is available to support you further. Let's get started and make your experience with Juan a pleasant one!        
+        </p>
+        <div class="d-flex flex-row-reverse column-gap-3">
+          <a class="btn btn-lg btn-success fw-bold" href="{{url_for('site.chat')}}">Chat with Juan!</a> 
+          <a href="{{url_for('site.admin_dashboard')}}" class="btn btn-lg btn-success f">Admin Dashboard</a>
+          <a href="{{url_for('api.logout')}}" class="btn btn-lg btn-danger f">Logout</a>
+        </div>
+
+      </div>
+    </div>
+  <img src="https://cdn.discordapp.com/attachments/624110762691919882/1108694435216240750/JOOAN.png">
+</main>
+
+
+
+{% endblock %}
+{% block body %}
+
+{% endblock %}  

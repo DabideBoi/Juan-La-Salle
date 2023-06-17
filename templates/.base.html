@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+<style> 
+     /* Dropdown Button */
+    .dropbtn {
+    background-color: #3498DB;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    }
+
+    /* Dropdown button on hover & focus */
+    .dropbtn:hover, .dropbtn:focus {
+    background-color: #2980B9;
+    }
+
+    /* The container <div> - needed to position the dropdown content */
+    .dropdown {
+    position: relative;
+    display: inline-block;
+    }
+
+    /* Dropdown Content (Hidden by Default) */
+    .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    }
+
+    /* Links inside the dropdown */
+    .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    }
+
+    /* Change color of dropdown links on hover */
+    .dropdown-content a:hover {background-color: #ddd;}
+
+    /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+    .show {display:block;} 
+</style>
+<script>
+    /* When the user clicks on the button,
+    toggle between hiding and showing the dropdown content */
+    function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+    }
+
+    // Close the dropdown menu if the user clicks outside of it
+    window.onclick = function(event) {
+    if (!event.target.matches('.dropbtn')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+        }
+        }
+    }
+    } 
+</script>
+<head>
+    <meta charset="UTF-8">
+    <title>Juan LaSalle</title>
+</head>
+<body>
+    <div class="dropdown">
+        <button onclick="myFunction()" class="dropbtn">Dropdown</button>
+        <div id="myDropdown" class="dropdown-content">
+            {%for notif in notif_list%}
+                <li>Message from {{notif['sender']}}</li>
+            {%endfor%}
+        </div>
+      </div> 
+    <div class= "bg_image">
+        <img src="{{ url_for('static', filename='/images/Sample_bg.png') }}"alt="dlsu-d"  style="width: 98vw;height:98vh;background-size: cover;"/>
+
+    </div>
+
+<div class="container">
+    <div class="chatbox">
+        <div class="chatbox__support">
+            <div class="chatbox__header">
+                <div class="chatbox__image--header">
+                    <img src="https://cdn.discordapp.com/attachments/693331372793659412/932497415859208232/JuanLasalle.png" alt="image">
+                </div>
+                <div class="chatbox__content--header">
+                    <h4 class="chatbox__heading--header">The Juan La Salle ChatBot</h4>
+                    <p class="chatbox__description--header">The Only Juan You Need</p>
+                </div>
+            </div>
+            <div class="chatbox__messages">
+                <div></div>
+            </div>
+            <div class="chatbox__footer">
+                <input type="text" placeholder="Write a message...">
+                <button class="chatbox__send--footer send__button">Send</button>
+            </div>
+        </div>
+        <div class="chatbox__button">
+            <button><img src="{{ url_for('static', filename='/images/chatbox-icon.svg') }}"class="filter-color" /></button>
+            
+        </div>
+    </div>
+</div>
+    <script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+from flask import Flask, render_template, request, jsonify
+from keras.models import load_model
+from flask_cors import CORS
+from chat import getResponse, predict_class
+import json
+
+model = load_model("chatbot_model.h5")
+intents = json.loads(open("intents.json").read())
+
+app = Flask(__name__)
+CORS(app)
+
+@app.get("/")
+def index_get():
+    return render_template("base.html")
+
+@app.post("/predict")
+def predict():
+    text = request.get_json().get("message")
+    if text.startswith('my name is'):
+        name = text[11:]
+        ints = predict_class(text, model)
+        res1 = getResponse(ints, intents)
+        res =res1.replace("{n}",name)
+    elif text.startswith('hi my name is'):
+        name = text[14:]
+        ints = predict_class(text, model)
+        res1 = getResponse(ints, intents)
+        res =res1.replace("{n}",name)
+    else:
+        ints = predict_class(text, model)
+        res = getResponse(ints, intents)
+    message ={"answer" : res}
+    return jsonify(message)
+
+if __name__ == "__main__":
+    app.run(debug=True)

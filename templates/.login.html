@@ -1,0 +1,31 @@
+{% extends "template<!--  -->.html" %}
+{% block title %}LOGIN{% endblock %}
+<!-- {% block head %}
+  {{ super() }}
+  <style type="text/css">
+    .important { color: #336699; }
+  </style>
+{% endblock %} -->
+{% block content %}
+    <div class="card p-4 m-auto">
+        <form action="/login" method="post">
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="username@address.com" name="username" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+        <!-- {% block body %} -->
+        <div class="card p-4 mt-3 me-auto">
+            <h5 class="card-title">No Account?</h5>
+            <p class="card-text small"><a href ="{{url_for('site.register')}}">Register Here</a></p>
+        </div>
+        <!-- {% endblock %}   -->
+    </div>
+{% endblock %}

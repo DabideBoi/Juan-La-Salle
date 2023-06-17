@@ -1,0 +1,25 @@
+{% extends "template.html" %}
+{% block title %}USER ADD SUCCESS{% endblock %}
+{% block style %}
+img {
+  position: fixed;
+  float: right;
+  padding: 3px;
+  bottom: 0;
+  z-index: 99;
+  right: 0;
+  height: 50vh
+}
+
+@media (width < 1000px) {
+  img {
+    height: 0;
+  }
+}
+{% endblock %}
+{% block content %}
+    <div class="card p-4 m-auto">
+        <h1>User successfully added!</h1>
+    </div>
+    <img src="https://cdn.discordapp.com/attachments/624110762691919882/1108694435216240750/JOOAN.png">
+{% endblock %}

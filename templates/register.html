@@ -1,0 +1,56 @@
+{% extends "template.html" %}
+{% block title %} REGISTER {% endblock %}
+
+{% block content %}
+<!--<div class="card p-4 m-auto">
+    <form action="/register" method = "POST">
+        <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="username@address.com" name="username">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password">
+        </div>
+        <button type="submit" class="btn btn-primary"> Submit</button>
+    </form>   
+
+    <div class="card p-4 mt-3 me-auto">
+        <h5 class="card-title">Already Have an Account?</h5>
+        <p class="card-text small"><a href ="{{url_for('site.index')}}">Login Here</a></p>
+    </div>
+</div>-->
+<section class="h-100" style="height: 100vh;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-8 col-xl-6">
+        <div class="card rounded-3">
+          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img3.webp"
+            class="w-100" style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;"
+            alt="Sample photo">
+          <div class="card-body p-4 p-md-5">
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Registration Info</h3>
+
+              <form action="/register" method="post" class="form-outline mb-4">
+                <input type="email" id="username" name="username" for="username" class="form-control" />
+                <label class="form-label" for="form3Example1q">Email</label>
+                <div class="row mb-4 pb-2 pb-md-0 mb-md-5">
+                  <div class="col-md-6">
+                    <input type="password" id="password" name="password" for="password" class="form-control" />
+                    <label class="form-label" for="form3Example1w">Password</label>
+                  </div>
+                </div>
+  
+                  <button type="submit" onclick="{{url_for('api.register_user')}}" class="btn btn-success btn-lg mb-1">Submit</button>
+              </form>
+
+              
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

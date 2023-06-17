@@ -1,0 +1,33 @@
+{% extends "template.html" %}
+{% block title %}LOGIN{% endblock %}
+{% block head %}
+ <link ref="stylesheet" href="./style-login.css"
+{% endblock %}
+{% block content %}
+    <div class="container">
+      <!-- <img class="juan-logo" src="https://media.discordapp.net/attachments/624110762691919882/1025435206884261949/JuanLasalle-big.png" alt="Juan Lasalle, at your service! :)">  -->
+
+      <div class="card p-5 m-auto d-grid">
+        <div class="d-flex flex-column">
+          <h1 class="align-self-center">Login</h1>
+          <p class="align-self-center fs-6">Please enter your details below</p>
+        </div>
+        <form action="/login" method="post">
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="username@address.com" name="username" required>  
+            <label for="email">Email address</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="passValidation" placeholder="Password" id="password" name="password" required>
+            <label for="password" id="passValidation">Password</label>
+          </div>
+          <button type="submit" class="btn btn-success">Submit</button>  
+          <div class="card p-4 mt-3 me-auto">
+            <h5 class="card-title">No Account?</h5>
+            <p class="card-text small"><a href ="{{url_for('site.register')}}">Register Here</a></p>
+          </div>
+      </div>
+    </div>
+{% endblock %}
+{% block body %}
+{% endblock %}  
